@@ -1,6 +1,7 @@
 package mikir;
 
 import java.awt.CardLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -12,9 +13,12 @@ public class Menu extends javax.swing.JFrame {
     /**
      * Creates new form Menu
      */
+    ButtonGroup bg = new ButtonGroup();
     public Menu() {
         initComponents();
         tfKendaraan.setVisible(false);
+        bg.add(rbMobil);
+        bg.add(rbMotor);
         
         cardlayout = (CardLayout) (PanelKonten.getLayout());
     }
@@ -26,8 +30,7 @@ public class Menu extends javax.swing.JFrame {
         tfBayar.setText("");
         tfKendaraan.setText("");
         tfNoPolisi.setText("");
-        rbMotor.setSelected(false);
-        rbMotor.setSelected(false);
+        bg.clearSelection();
         BiayaParkir.setText("Rp.-");
         Kembalian.setText("Rp.-");
     }
@@ -434,25 +437,52 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLogoutMouseClicked
 
     private void tfJamKeluarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfJamKeluarKeyReleased
-        //hitung();
+        int vmasuk = Integer.parseInt(tfJamMasuk.getText());
+        int vkeluar = Integer.parseInt(tfJamKeluar.getText());
+        
+            if(vmasuk >= vkeluar){
+                JOptionPane.showMessageDialog(this, "Nilai Jam Keluar harus lebih besar dari Jam Masuk!", "Error", JOptionPane.WARNING_MESSAGE);
+                tfJamKeluar.requestFocus();
+            }
     }//GEN-LAST:event_tfJamKeluarKeyReleased
 
     private void btnSimpanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSimpanMouseClicked
         //auto increment
-        if(tfJamKeluar.getText().trim().isEmpty() && tfNoPolisi.getText().trim().isEmpty() && tfBayar.getText().trim().isEmpty() && tfJamMasuk.getText().isEmpty()){
-            JOptionPane.showMessageDialog(this, "Nilai Kosong!", "Error", JOptionPane.ERROR_MESSAGE);
+        if(tfJamKeluar.getText().trim().isEmpty() && tfNoPolisi.getText().trim().isEmpty() && tfBayar.getText().trim().isEmpty() && tfJamMasuk.getText().isEmpty()&& tfKendaraan.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Nilai Kosong!", "Error", JOptionPane.WARNING_MESSAGE);
             clear();
         }
+        else if (tfJamMasuk.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Nilai Jam Masuk Kosong!", "Error", JOptionPane.WARNING_MESSAGE);
+            tfJamMasuk.requestFocus();
+        }
+        else if (tfJamKeluar.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Nilai Jam Keluar Kosong!", "Error", JOptionPane.WARNING_MESSAGE);
+            tfJamKeluar.requestFocus();
+        }
+        else if (tfNoPolisi.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Nilai Nomor Polisi Kosong!", "Error", JOptionPane.WARNING_MESSAGE);
+            tfNoPolisi.requestFocus();
+        }
+        else if (tfKendaraan.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Nilai Nomor Polisi Kosong!", "Error", JOptionPane.WARNING_MESSAGE);
+            tfKendaraan.requestFocus();
+        }
+        else if (tfBayar.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Nilai Uang yang dibayarkan Kosong!", "Error", JOptionPane.WARNING_MESSAGE);
+            tfBayar.requestFocus();
+        }
         else{
-        n++;
-        tfNoAntrean.setText(String.valueOf(n));
-        
-        //table
-        DefaultTableModel model = (DefaultTableModel) Tabel.getModel();
-        model.addRow(new Object[]{tfNoAntrean.getText(), tfKendaraan.getText(), tfNoPolisi.getText(), tfJamMasuk.getText(), tfJamKeluar.getText()});
-        
-        //clear
-        clear();
+            //table
+            
+            DefaultTableModel model = (DefaultTableModel) Tabel.getModel();
+            model.addRow(new Object[]{tfNoAntrean.getText(), tfKendaraan.getText(), tfNoPolisi.getText(), tfJamMasuk.getText(), tfJamKeluar.getText()});
+
+            n++;
+            tfNoAntrean.setText(String.valueOf(n));
+
+            //clear
+            clear();
         }
         
     }//GEN-LAST:event_btnSimpanMouseClicked
