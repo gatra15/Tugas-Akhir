@@ -1,18 +1,68 @@
 package mikir;
 
-import java.awt.Color;
+import java.awt.CardLayout;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 
 
 public class Menu extends javax.swing.JFrame {
 
+    CardLayout cardlayout;
     /**
      * Creates new form Menu
      */
     public Menu() {
         initComponents();
+        tfKendaraan.setVisible(false);
+        
+        cardlayout = (CardLayout) (PanelKonten.getLayout());
     }
-
+    
+    public void clear(){
+        tfJamMasuk.setText("");
+        tfJamKeluar.setText("");
+        tfBayar.setText("");
+        tfBayar.setText("");
+        tfKendaraan.setText("");
+        tfNoPolisi.setText("");
+        rbMotor.setSelected(false);
+        rbMotor.setSelected(false);
+        BiayaParkir.setText("Rp.-");
+        Kembalian.setText("Rp.-");
+    }
+    
+    private int biaya,n=1;
+    public void hitung(){
+         //deklarasi variabel
+        int masuk, keluar, lama, harga;
+        
+        //inisialisasi variabel
+        masuk = Integer.parseInt(tfJamMasuk.getText());
+        keluar = Integer.parseInt(tfJamKeluar.getText());
+        
+        //proses
+        lama = keluar - masuk;
+        //pengkondisian
+        
+        if(rbMobil.isSelected()){
+            tfKendaraan.setText("Mobil");
+            harga = 4000;
+        }else {
+            tfKendaraan.setText("Motor");
+            harga = 2000;
+        }
+        
+        biaya = lama*harga;
+        if(biaya > 20000){
+            biaya = 20000;
+        }else{
+            biaya = lama*harga;
+        }
+        
+        //setText
+        BiayaParkir.setText(String.valueOf("Rp. " + biaya));
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -22,11 +72,40 @@ public class Menu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jSplitPane1 = new javax.swing.JSplitPane();
         PanelMenu = new javax.swing.JPanel();
         btnHitung = new javax.swing.JLabel();
         btnHistory = new javax.swing.JLabel();
         lbMenu = new javax.swing.JLabel();
         btnLogout = new javax.swing.JLabel();
+        PanelKonten = new javax.swing.JPanel();
+        panelAdmin = new javax.swing.JPanel();
+        Judul = new javax.swing.JLabel();
+        KetPanel = new javax.swing.JPanel();
+        lbJamMasuk = new javax.swing.JLabel();
+        lbNoPolisi = new javax.swing.JLabel();
+        lbJnsKendaraan = new javax.swing.JLabel();
+        tfJamMasuk = new javax.swing.JTextField();
+        lbJamKeluar = new javax.swing.JLabel();
+        tfJamKeluar = new javax.swing.JTextField();
+        tfBayar = new javax.swing.JTextField();
+        lbNoAntrean = new javax.swing.JLabel();
+        tfNoAntrean = new javax.swing.JTextField();
+        lbBiayaParkir = new javax.swing.JLabel();
+        lbPembayaran = new javax.swing.JLabel();
+        lbKembalian = new javax.swing.JLabel();
+        btnSimpan = new javax.swing.JLabel();
+        btnReset = new javax.swing.JLabel();
+        BiayaParkir = new javax.swing.JLabel();
+        Kembalian = new javax.swing.JLabel();
+        rbMotor = new javax.swing.JRadioButton();
+        rbMobil = new javax.swing.JRadioButton();
+        tfNoPolisi = new javax.swing.JTextField();
+        tfKendaraan = new javax.swing.JTextField();
+        panelHistory = new javax.swing.JPanel();
+        lbHistory = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        Tabel = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -36,7 +115,7 @@ public class Menu extends javax.swing.JFrame {
         btnHitung.setFont(new java.awt.Font("Courier New", 1, 12)); // NOI18N
         btnHitung.setForeground(new java.awt.Color(255, 255, 255));
         btnHitung.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnHitung.setText("Biaya Parkir");
+        btnHitung.setText("Admin Parkir");
         btnHitung.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
         btnHitung.setOpaque(true);
         btnHitung.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -84,40 +163,252 @@ public class Menu extends javax.swing.JFrame {
         PanelMenuLayout.setHorizontalGroup(
             PanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelMenuLayout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addContainerGap()
                 .addGroup(PanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(btnHistory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnHitung, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(33, Short.MAX_VALUE))
+                    .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelMenuLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lbMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55))
+                .addGap(32, 32, 32))
         );
         PanelMenuLayout.setVerticalGroup(
             PanelMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelMenuLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lbMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnHitung, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(107, Short.MAX_VALUE))
         );
+
+        jSplitPane1.setLeftComponent(PanelMenu);
+
+        PanelKonten.setBackground(new java.awt.Color(255, 255, 255));
+        PanelKonten.setLayout(new java.awt.CardLayout());
+
+        panelAdmin.setBackground(new java.awt.Color(0, 180, 50));
+        panelAdmin.setPreferredSize(new java.awt.Dimension(586, 258));
+
+        Judul.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
+        Judul.setForeground(new java.awt.Color(255, 255, 255));
+        Judul.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Judul.setText("Admin Parkir");
+
+        KetPanel.setBackground(new java.awt.Color(0, 255, 51));
+        KetPanel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 153, 0), 3, true));
+        KetPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lbJamMasuk.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lbJamMasuk.setText("Jam Masuk    :");
+        KetPanel.add(lbJamMasuk, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 51, -1, 22));
+
+        lbNoPolisi.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lbNoPolisi.setText("No. Polisi      :");
+        KetPanel.add(lbNoPolisi, new org.netbeans.lib.awtextra.AbsoluteConstraints(277, 23, -1, 22));
+
+        lbJnsKendaraan.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lbJnsKendaraan.setText("Jenis Kendaraan :");
+        KetPanel.add(lbJnsKendaraan, new org.netbeans.lib.awtextra.AbsoluteConstraints(277, 51, -1, 22));
+        KetPanel.add(tfJamMasuk, new org.netbeans.lib.awtextra.AbsoluteConstraints(137, 52, 114, -1));
+
+        lbJamKeluar.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lbJamKeluar.setText("Jam Keluar   :");
+        KetPanel.add(lbJamKeluar, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 79, -1, 22));
+
+        tfJamKeluar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfJamKeluarKeyReleased(evt);
+            }
+        });
+        KetPanel.add(tfJamKeluar, new org.netbeans.lib.awtextra.AbsoluteConstraints(137, 80, 114, -1));
+
+        tfBayar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfBayarKeyReleased(evt);
+            }
+        });
+        KetPanel.add(tfBayar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 123, 114, -1));
+
+        lbNoAntrean.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lbNoAntrean.setText("No. Antrean  : ");
+        KetPanel.add(lbNoAntrean, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 23, -1, 22));
+
+        tfNoAntrean.setEditable(false);
+        tfNoAntrean.setText("1");
+        KetPanel.add(tfNoAntrean, new org.netbeans.lib.awtextra.AbsoluteConstraints(137, 24, 114, -1));
+
+        lbBiayaParkir.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lbBiayaParkir.setText("Biaya Parkir :");
+        KetPanel.add(lbBiayaParkir, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 121, -1, 22));
+
+        lbPembayaran.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lbPembayaran.setText("Pembayaran   :");
+        KetPanel.add(lbPembayaran, new org.netbeans.lib.awtextra.AbsoluteConstraints(301, 121, -1, 22));
+
+        lbKembalian.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        lbKembalian.setText("Kembalian    :");
+        KetPanel.add(lbKembalian, new org.netbeans.lib.awtextra.AbsoluteConstraints(13, 149, -1, 22));
+
+        btnSimpan.setBackground(new java.awt.Color(255, 245, 0));
+        btnSimpan.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        btnSimpan.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnSimpan.setText("Simpan");
+        btnSimpan.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        btnSimpan.setOpaque(true);
+        btnSimpan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSimpanMouseClicked(evt);
+            }
+        });
+        KetPanel.add(btnSimpan, new org.netbeans.lib.awtextra.AbsoluteConstraints(411, 161, 58, 22));
+
+        btnReset.setBackground(new java.awt.Color(255, 51, 40));
+        btnReset.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        btnReset.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btnReset.setText("Reset");
+        btnReset.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 1, true));
+        btnReset.setOpaque(true);
+        btnReset.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnResetMouseClicked(evt);
+            }
+        });
+        KetPanel.add(btnReset, new org.netbeans.lib.awtextra.AbsoluteConstraints(487, 161, 58, 22));
+
+        BiayaParkir.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        BiayaParkir.setText("Rp. -");
+        KetPanel.add(BiayaParkir, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 114, 22));
+
+        Kembalian.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        Kembalian.setText("Rp. -");
+        KetPanel.add(Kembalian, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 114, 22));
+
+        rbMotor.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        rbMotor.setText("Motor");
+        rbMotor.setOpaque(false);
+        rbMotor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbMotorActionPerformed(evt);
+            }
+        });
+        KetPanel.add(rbMotor, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 75, -1, -1));
+
+        rbMobil.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
+        rbMobil.setText("Mobil");
+        rbMobil.setOpaque(false);
+        rbMobil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbMobilActionPerformed(evt);
+            }
+        });
+        KetPanel.add(rbMobil, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 50, -1, -1));
+        KetPanel.add(tfNoPolisi, new org.netbeans.lib.awtextra.AbsoluteConstraints(431, 24, 114, -1));
+
+        tfKendaraan.setEditable(false);
+        tfKendaraan.setBackground(new java.awt.Color(255, 255, 255));
+        tfKendaraan.setForeground(new java.awt.Color(255, 255, 255));
+        tfKendaraan.setBorder(null);
+        tfKendaraan.setOpaque(false);
+
+        javax.swing.GroupLayout panelAdminLayout = new javax.swing.GroupLayout(panelAdmin);
+        panelAdmin.setLayout(panelAdminLayout);
+        panelAdminLayout.setHorizontalGroup(
+            panelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAdminLayout.createSequentialGroup()
+                .addGroup(panelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelAdminLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(KetPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 556, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAdminLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Judul, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(209, 209, 209)))
+                .addComponent(tfKendaraan, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelAdminLayout.setVerticalGroup(
+            panelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAdminLayout.createSequentialGroup()
+                .addGroup(panelAdminLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelAdminLayout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(tfKendaraan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelAdminLayout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(Judul, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(KetPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        PanelKonten.add(panelAdmin, "panelAdmin");
+
+        panelHistory.setBackground(new java.awt.Color(0, 180, 50));
+
+        lbHistory.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
+        lbHistory.setForeground(new java.awt.Color(255, 255, 255));
+        lbHistory.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbHistory.setText("History Parkir");
+
+        Tabel.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "No Antrean", "Jenis Kendaraan", "No. Polisi", "Jam Masuk", "Jam Keluar"
+            }
+        ));
+        Tabel.setFocusable(false);
+        Tabel.setIntercellSpacing(new java.awt.Dimension(0, 0));
+        Tabel.setRowHeight(25);
+        Tabel.setSelectionBackground(new java.awt.Color(232, 57, 95));
+        Tabel.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(Tabel);
+
+        javax.swing.GroupLayout panelHistoryLayout = new javax.swing.GroupLayout(panelHistory);
+        panelHistory.setLayout(panelHistoryLayout);
+        panelHistoryLayout.setHorizontalGroup(
+            panelHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelHistoryLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelHistoryLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lbHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(197, 197, 197))
+        );
+        panelHistoryLayout.setVerticalGroup(
+            panelHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelHistoryLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lbHistory)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        PanelKonten.add(panelHistory, "panelHistory");
+
+        jSplitPane1.setRightComponent(PanelKonten);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 719, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
         );
 
         pack();
@@ -125,26 +416,66 @@ public class Menu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLogoutMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogoutMouseEntered
-        btnLogout.setBackground(new Color(255,51,51));
+        //
     }//GEN-LAST:event_btnLogoutMouseEntered
 
     private void btnHitungMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHitungMouseClicked
-        dispose();
-        Content konten = new Content();
-        konten.setVisible(true);
+        cardlayout.show(PanelKonten, "panelAdmin");
     }//GEN-LAST:event_btnHitungMouseClicked
 
     private void btnHistoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHistoryMouseClicked
-        dispose();
-        History his = new History();
-        his.setVisible(true);
+        cardlayout.show(PanelKonten, "panelHistory");
     }//GEN-LAST:event_btnHistoryMouseClicked
 
     private void btnLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogoutMouseClicked
-        dispose();
+        setVisible(false);
         LoginMenu login = new LoginMenu();
         login.setVisible(true);
     }//GEN-LAST:event_btnLogoutMouseClicked
+
+    private void tfJamKeluarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfJamKeluarKeyReleased
+        //hitung();
+    }//GEN-LAST:event_tfJamKeluarKeyReleased
+
+    private void btnSimpanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSimpanMouseClicked
+        //auto increment
+        if(tfJamKeluar.getText().trim().isEmpty() && tfNoPolisi.getText().trim().isEmpty() && tfBayar.getText().trim().isEmpty() && tfJamMasuk.getText().isEmpty()){
+            JOptionPane.showMessageDialog(this, "Nilai Kosong!", "Error", JOptionPane.ERROR_MESSAGE);
+            clear();
+        }
+        else{
+        n++;
+        tfNoAntrean.setText(String.valueOf(n));
+        
+        //table
+        DefaultTableModel model = (DefaultTableModel) Tabel.getModel();
+        model.addRow(new Object[]{tfNoAntrean.getText(), tfKendaraan.getText(), tfNoPolisi.getText(), tfJamMasuk.getText(), tfJamKeluar.getText()});
+        
+        //clear
+        clear();
+        }
+        
+    }//GEN-LAST:event_btnSimpanMouseClicked
+
+    private void btnResetMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnResetMouseClicked
+        clear();
+    }//GEN-LAST:event_btnResetMouseClicked
+
+    private void rbMotorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbMotorActionPerformed
+        hitung();
+    }//GEN-LAST:event_rbMotorActionPerformed
+
+    private void rbMobilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbMobilActionPerformed
+        hitung();
+    }//GEN-LAST:event_rbMobilActionPerformed
+
+    private void tfBayarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfBayarKeyReleased
+        int bayar, kembalian;
+        
+        bayar = Integer.parseInt(tfBayar.getText());
+        kembalian = bayar - biaya;
+        Kembalian.setText(String.valueOf("Rp. "+kembalian));
+    }//GEN-LAST:event_tfBayarKeyReleased
 
     /**
      * @param args the command line arguments
@@ -182,10 +513,39 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel BiayaParkir;
+    private javax.swing.JLabel Judul;
+    private javax.swing.JLabel Kembalian;
+    private javax.swing.JPanel KetPanel;
+    private javax.swing.JPanel PanelKonten;
     private javax.swing.JPanel PanelMenu;
+    private javax.swing.JTable Tabel;
     private javax.swing.JLabel btnHistory;
     private javax.swing.JLabel btnHitung;
     private javax.swing.JLabel btnLogout;
+    private javax.swing.JLabel btnReset;
+    private javax.swing.JLabel btnSimpan;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JLabel lbBiayaParkir;
+    private javax.swing.JLabel lbHistory;
+    private javax.swing.JLabel lbJamKeluar;
+    private javax.swing.JLabel lbJamMasuk;
+    private javax.swing.JLabel lbJnsKendaraan;
+    private javax.swing.JLabel lbKembalian;
     private javax.swing.JLabel lbMenu;
+    private javax.swing.JLabel lbNoAntrean;
+    private javax.swing.JLabel lbNoPolisi;
+    private javax.swing.JLabel lbPembayaran;
+    private javax.swing.JPanel panelAdmin;
+    private javax.swing.JPanel panelHistory;
+    private javax.swing.JRadioButton rbMobil;
+    private javax.swing.JRadioButton rbMotor;
+    private javax.swing.JTextField tfBayar;
+    private javax.swing.JTextField tfJamKeluar;
+    private javax.swing.JTextField tfJamMasuk;
+    private javax.swing.JTextField tfKendaraan;
+    private javax.swing.JTextField tfNoAntrean;
+    private javax.swing.JTextField tfNoPolisi;
     // End of variables declaration//GEN-END:variables
 }

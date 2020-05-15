@@ -2,6 +2,7 @@ package mikir;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import javax.swing.JFrame;
 
 
 public class LoginMenu extends javax.swing.JFrame {
@@ -12,13 +13,24 @@ public class LoginMenu extends javax.swing.JFrame {
         password.setForeground(new Color(204,204,204));
     }
     
+    public void close(){
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    }
     public void Login(){
         String user, pass;
         user = username.getText();
         pass = password.getText();
         userService panel = new userService(user, pass);
-        panel.login();
-        
+        boolean status = panel.login();
+        if(status == true){
+            dispose();
+        }else {
+            username.requestFocus();
+            username.setText("");
+            password.setText("Password");
+            password.setEchoChar((char)0);
+            password.setForeground(new Color(204,204,204));
+        }
     }
 
     
@@ -143,10 +155,7 @@ public class LoginMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginBtnMouseClicked
-        dispose();
         Login();
-        username.setText("");
-        password.setText("");
     }//GEN-LAST:event_loginBtnMouseClicked
 
     private void loginBtnKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_loginBtnKeyPressed
@@ -155,10 +164,7 @@ public class LoginMenu extends javax.swing.JFrame {
 
     private void passwordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordKeyPressed
         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
-        dispose();
         Login();
-        username.setText("");
-        password.setText("");
         }
     }//GEN-LAST:event_passwordKeyPressed
 
@@ -240,4 +246,8 @@ public class LoginMenu extends javax.swing.JFrame {
     private javax.swing.JPasswordField password;
     private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
+
+    void isActive(boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

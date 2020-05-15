@@ -1,13 +1,12 @@
 package mikir;
 
-import java.awt.event.WindowEvent;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class userService {
     private String[] data = new String[3];
     private String username, password, role="";
     LoginMenu login = new LoginMenu();
-    Content konten = new Content();
     Menu menu = new Menu();
     //constructor
     public userService(String user, String pass){
@@ -26,14 +25,16 @@ public class userService {
         return false;
     }
     
-    public void login(){
+    public boolean login(){
         boolean status = checkCredentials();
         if (status == true){
-            
+            JOptionPane.showMessageDialog(menu, "Welcome "+data[2], "Success Login", JOptionPane.INFORMATION_MESSAGE);
             menu.setVisible(true);
+            return true;
         }
         else {
-            JOptionPane.showMessageDialog(null, "Invalid Login Details", "Login Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(menu, "Invalid Login Details", "Login Error", JOptionPane.ERROR_MESSAGE);
+            return  false;
         }
     }
 }
